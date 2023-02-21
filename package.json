@@ -1,0 +1,30 @@
+{
+  "name": "explorer-clone-production-db-service",
+  "version": "1.5.1",
+  "description": "Explorer clone production DB service",
+  "main": "build/index.js",
+  "author": "igortrindade.dev",
+  "scripts": {
+    "build": "rm -rf ./build && tsc -p tsconfig.json",
+    "release": "standard-version -a"
+  },
+  "homepage": "https://github.com/Policy-Studio/explorer-clone-production-db-service",
+  "devDependencies": {
+    "@types/cron": "^2.0.0",
+    "@types/dotenv": "^8.2.0",
+    "@types/node": "^18.13.0",
+    "@typescript-eslint/eslint-plugin": "^4.14.0",
+    "@typescript-eslint/parser": "^4.14.0",
+    "tslib": "^2.1.0",
+    "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.271.0",
+    "@aws-sdk/util-base64-node": "^3.209.0",
+    "aws-sdk": "^2.1315.0",
+    "chalk": "4.1.0",
+    "cron": "^2.2.0",
+    "dotenv": "^16.0.3",
+    "standard-version": "^9.5.0"
+  }
+}

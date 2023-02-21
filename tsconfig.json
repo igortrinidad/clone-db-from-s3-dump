@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "build",
+    "target": "es2020",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "declaration": true,
+    "strict": true,
+    "strictNullChecks": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "typeRoots": ["node_modules/@types", "src/types"]
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules/**"],
+}

@@ -1,0 +1,11 @@
+.lh
+
+logs
+
+.npm
+node_modules/
+npm-debug.log*
+
+.env
+.history
+tmp/*
