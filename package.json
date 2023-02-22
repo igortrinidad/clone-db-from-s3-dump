@@ -1,14 +1,14 @@
 {
-  "name": "explorer-clone-production-db-service",
+  "name": "clone-db-from-s3-dump",
   "version": "1.0.0",
-  "description": "Explorer clone production DB service",
+  "description": "Clone production DB service",
   "main": "build/index.js",
   "author": "igortrindade.dev",
   "scripts": {
     "build": "rm -rf ./build && tsc -p tsconfig.json",
     "release": "standard-version -a"
   },
-  "homepage": "https://github.com/Policy-Studio/explorer-clone-production-db-service",
+  "homepage": "https://github.com/igortrinidad/clone-db-from-s3-dump",
   "devDependencies": {
     "@types/cron": "^2.0.0",
     "@types/dotenv": "^8.2.0",
