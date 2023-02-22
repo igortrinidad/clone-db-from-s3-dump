@@ -1,6 +1,6 @@
 {
   "name": "clone-db-from-s3-dump",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Clone production DB service",
   "main": "build/index.js",
   "author": "igortrindade.dev",
