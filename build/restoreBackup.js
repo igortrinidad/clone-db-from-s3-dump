@@ -9,13 +9,18 @@ const fs_1 = __importDefault(require("fs"));
 const path_1 = __importDefault(require("path"));
 const AwsS3Service_1 = require("./AwsS3Service");
 const removeOlderFiles_1 = require("./removeOlderFiles");
-const restoreBackup = async ({ NODE_ENV = 'production', DOCKER_CONTAINER = 'cee_dev_postgress', DB_NAME = 'cee' } = {}) => {
-    NODE_ENV = process.env.NODE_ENV || NODE_ENV;
+const restoreBackup = async ({ DOCKER_CONTAINER = '', DB_NAME = '', S3_FOLDER = '', S3_REGION = '', S3_BUCKET = '' } = {}) => {
     DOCKER_CONTAINER = process.env.DOCKER_CONTAINER || DOCKER_CONTAINER;
     DB_NAME = process.env.DB_NAME || DB_NAME;
-    const s3Service = new AwsS3Service_1.AwsS3Service({ S3_REGION: 'us-west-1', S3_BUCKET: 'cee-db-backup-permanent' });
-    const s3BackupFolder = NODE_ENV === 'production' ? 'cee_production' : 'cee_staging';
-    const dumps = await s3Service.listAwsObjects(s3BackupFolder);
+    S3_FOLDER = process.env.S3_FOLDER || S3_FOLDER;
+    S3_REGION = process.env.S3_REGION || S3_REGION;
+    S3_BUCKET = process.env.S3_BUCKET || S3_BUCKET;
+    const s3Service = new AwsS3Service_1.AwsS3Service({ S3_REGION, S3_BUCKET });
+    const dumps = await s3Service.listAwsObjects(S3_FOLDER);
+    if (dumps.length === 0) {
+        console.log('No backups found, exiting...');
+        return;
+    }
     const latestBackupS3ObjectKey = dumps[0];
     console.log(`Latest backup found: ${latestBackupS3ObjectKey}`);
     const latestBackupFilename = latestBackupS3ObjectKey.split('/')[latestBackupS3ObjectKey.split('/').length - 1];

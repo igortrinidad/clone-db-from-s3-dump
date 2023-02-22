@@ -6,22 +6,29 @@ import { AwsS3Service } from './AwsS3Service'
 import { removeOlderFiles } from './removeOlderFiles'
 
 interface RestoreBackupInputInterface {
-  NODE_ENV?: string,
   DOCKER_CONTAINER?: string,
   DB_NAME?: string,
+  S3_FOLDER? : string
+  S3_REGION? : string
+  S3_BUCKET? : string
 }
 
-export const restoreBackup = async ({ NODE_ENV = 'production', DOCKER_CONTAINER = 'cee_dev_postgress', DB_NAME = 'cee' }: RestoreBackupInputInterface = {}) => {
+export const restoreBackup = async ({ DOCKER_CONTAINER = '', DB_NAME = '', S3_FOLDER = '', S3_REGION = '', S3_BUCKET = '' }: RestoreBackupInputInterface = {}) => {
 
-  NODE_ENV = process.env.NODE_ENV || NODE_ENV
   DOCKER_CONTAINER = process.env.DOCKER_CONTAINER || DOCKER_CONTAINER
   DB_NAME = process.env.DB_NAME || DB_NAME
+  S3_FOLDER = process.env.S3_FOLDER || S3_FOLDER
+  S3_REGION = process.env.S3_REGION || S3_REGION
+  S3_BUCKET = process.env.S3_BUCKET || S3_BUCKET
 
-  const s3Service = new AwsS3Service({ S3_REGION: 'us-west-1', S3_BUCKET: 'cee-db-backup-permanent' })
+  const s3Service = new AwsS3Service({ S3_REGION, S3_BUCKET })
 
-  const s3BackupFolder = NODE_ENV === 'production' ? 'cee_production' : 'cee_staging'
+  const dumps = await s3Service.listAwsObjects(S3_FOLDER)
 
-  const dumps = await s3Service.listAwsObjects(s3BackupFolder)
+  if(dumps.length === 0) {
+    console.log('No backups found, exiting...')
+    return
+  }
 
   const latestBackupS3ObjectKey = dumps[0]
 

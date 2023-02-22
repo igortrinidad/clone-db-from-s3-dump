@@ -1,6 +1,6 @@
 {
   "name": "explorer-clone-production-db-service",
-  "version": "1.5.1",
+  "version": "1.0.0",
   "description": "Explorer clone production DB service",
   "main": "build/index.js",
   "author": "igortrindade.dev",

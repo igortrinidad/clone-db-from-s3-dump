@@ -34,6 +34,7 @@ const AwsS3Service = class {
             writeStream.on("error", reject);
         });
         console.log(`Object saved to ${localFilePath}`);
+        return localFilePath;
     }
 };
 exports.AwsS3Service = AwsS3Service;
